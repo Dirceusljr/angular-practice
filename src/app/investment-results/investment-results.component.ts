@@ -1,5 +1,5 @@
-import { Component, input } from '@angular/core';
-import { InvestmentResults } from './investment-results.model';
+import { investmentService } from './../investment.service';
+import { Component, inject } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 
 @Component({
@@ -10,5 +10,10 @@ import { CurrencyPipe } from '@angular/common';
   styleUrl: './investment-results.component.css',
 })
 export class InvestmentResultsComponent {
-  results = input<InvestmentResults[]>();
+  private investmentService = inject(investmentService);
+
+  results = this.investmentService.resultsData.asReadonly();
+
+  //Other solution using computed property
+  // results = computed(() => this.investmentService.resultsData());
 }
